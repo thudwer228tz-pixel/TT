@@ -1,0 +1,18 @@
+-- Function definition for RebirthBypass to ensure complete functionality
+-- This function is designed to handle rebirth logic by interacting with remote events
+local function RebirthBypass(amount)
+    -- Accessing ReplicatedStorage to locate game communication remotes
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    
+    -- Iterate through descendants to find a remote event matching 'Rebirth' or 'Reborn'
+    -- This ensures the bypass works across different game architectures
+    for _, remote in ipairs(ReplicatedStorage:GetDescendants()) do
+        if remote:IsA("RemoteEvent") and (remote.Name:find("Rebirth") or remote.Name:find("Reborn")) then
+            -- Firing the server with the requested amount to perform the bypass
+            remote:FireServer(amount)
+        end
+    end
+end
+
+-- Original code call
+RebirthBypass(9999)
